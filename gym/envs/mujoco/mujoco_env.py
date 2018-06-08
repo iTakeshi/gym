@@ -1,6 +1,7 @@
 import os
 
-from gym import error, spaces
+from gym import error
+from gym.spaces import Box
 from gym.utils import seeding
 import numpy as np
 from os import path
@@ -46,11 +47,11 @@ class MujocoEnv(gym.Env):
         bounds = self.model.actuator_ctrlrange.copy()
         low = bounds[:, 0]
         high = bounds[:, 1]
-        self.action_space = spaces.Box(low=low, high=high)
+        self.action_space = Box(low=low, high=high, dtype=np.float32)
 
         high = np.inf*np.ones(self.obs_dim)
         low = -high
-        self.observation_space = spaces.Box(low, high)
+        self.observation_space = Box(low, high, dtype=np.float32)
 
         self.seed()
 
